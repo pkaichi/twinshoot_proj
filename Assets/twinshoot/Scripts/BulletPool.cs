@@ -10,11 +10,12 @@ public class BulletPool : GameObjectSingleton<BulletPool>
 
     void Awake()
     {
+        Debug.Log($"{name}.Awake()");
         pool = new LinkedPool<GameObject>(
 
-            () => GameObject.Instantiate(bulletPrefab) as GameObject,
-            (obj) => { },
-            (obj) => { },
+            () => GameObject.Instantiate(bulletPrefab),
+            (obj) => { obj.SetActive(true); },
+            (obj) => { obj.SetActive(false); },
             (obj) => GameObject.Destroy(obj),
             true,
             1024
@@ -23,12 +24,14 @@ public class BulletPool : GameObjectSingleton<BulletPool>
 
     public void Initialize(GameObject prefab)
     {
+        Debug.Log($"{name}.Initialize()");
         OnDestroy();
         bulletPrefab = prefab;
     }
 
     public GameObject GetBullet()
     {
+        Debug.Log($"pool as {pool}");
         return pool.Get();
     }
 
