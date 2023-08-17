@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 public static class PadExtend
 {
     [Flags]
@@ -39,6 +38,12 @@ public static class PadExtend
 
 
         return state;
+    }
+
+    public static uint CalcPullState(this Gamepad pad, uint prevState)
+    {
+        var ns = pad.PushState();
+        return (ns ^ prevState) & prevState;
     }
 
 }

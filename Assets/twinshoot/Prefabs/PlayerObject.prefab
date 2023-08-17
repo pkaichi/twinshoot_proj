@@ -108,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5942312502072897888}
   - component: {fileID: 5942312502072897951}
+  - component: {fileID: 1852766337}
   m_Layer: 0
   m_Name: PlayerObject
   m_TagString: Untagged
@@ -146,7 +147,23 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   yAxisRot: 1
   analogBlindRange: 0.2
+  bulletPrefab: {fileID: 0}
   textArea: {fileID: 0}
+--- !u!114 &1852766337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5942312502072897950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbf901c4bfa249243924eacfdf8a5e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotRoot: {fileID: 5942312502403862638}
+  bulletPrefab: {fileID: 7763313171058852357, guid: 870885458e7132446a919cafa7f0020a,
+    type: 3}
 --- !u!1 &5942312502403862637
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +257,7 @@ SphereCollider:
   m_GameObject: {fileID: 5942312502403862637}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

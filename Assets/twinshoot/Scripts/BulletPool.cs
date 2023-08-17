@@ -5,42 +5,35 @@ using UnityEngine.Pool;
 
 public class BulletPool : GameObjectSingleton<BulletPool>
 {
-    GameObject bulletPrefab;
-    LinkedPool<GameObject> pool;
+    BulletMoveControl bulletPrefab;
+    LinkedPool<BulletMoveControl> pool;
 
     void Awake()
     {
-        Debug.Log($"{name}.Awake()");
-        pool = new LinkedPool<GameObject>(
+        pool = new LinkedPool<BulletMoveControl>(
 
-            () => GameObject.Instantiate(bulletPrefab),
-            (obj) => { obj.SetActive(true); },
-            (obj) => { obj.SetActive(false); },
+            () => GameObject.Instantiate<BulletMoveControl>(bulletPrefab),
+            (obj) => { obj.gameObject.SetActive(true); },
+            (obj) => { obj.gameObject.SetActive(false); },
             (obj) => GameObject.Destroy(obj),
             true,
             1024
         );
     }
 
-    public void Initialize(GameObject prefab)
+    public void Initialize(BulletMoveControl prefab)
     {
-        Debug.Log($"{name}.Initialize()");
-        OnDestroy();
         bulletPrefab = prefab;
     }
 
-    public GameObject GetBullet()
+    public BulletMoveControl GetBullet()
     {
-        Debug.Log($"pool as {pool}");
         return pool.Get();
     }
 
     void OnDestroy()
     {
-        if (pool != null)
-        {
-            pool.Dispose();
-        }
+        pool?.Dispose();
         pool = null;
     }
 }

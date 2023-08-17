@@ -58,11 +58,6 @@ public class PlayerInputControl : MonoBehaviour
 
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, yAngle, transform.localEulerAngles.z);
         }
-
-        if (pad.rightTrigger.isPressed)
-        {
-            var go = new GameObject();
-        }
     }
 
     void FixedUpdate()
