@@ -31,9 +31,9 @@ public class PlayerInputControl : MonoBehaviour
         }
 
         var pad = Gamepad.current;
-
+#if UNITY_EDITOR
         textArea.text = $"{pad.leftStick.value},{pad.leftStick.value.magnitude}";
-
+#endif
         // leftstickで移動
         var lStickValue = pad.leftStick.value;
         float xmove = 0f;
