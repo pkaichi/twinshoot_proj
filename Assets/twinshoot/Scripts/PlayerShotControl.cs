@@ -33,10 +33,7 @@ public class PlayerShotControl : MonoBehaviour
             bullet.transform.position = shotRoot.position;
             bullet.transform.rotation = shotRoot.rotation;
 
-            Debug.Log($"{transform.eulerAngles} , {transform.localEulerAngles}");
             bullet.MoveVector = bullet.transform.forward;
-
-            //            Debug.Break();
         }
 
 

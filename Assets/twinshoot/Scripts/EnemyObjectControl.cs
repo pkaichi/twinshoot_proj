@@ -17,17 +17,19 @@ public class EnemyObjectControl : MonoBehaviour
     float floatingValue;
     Vector3 floatingPos;
 
+    Coroutine resetRBCoroutine;
+
+    System.Action<EnemyObjectControl> dieActionCallback;
+
+    public System.Action<EnemyObjectControl> DieActionCallback
+    {
+        set => dieActionCallback = value;
+    }
 
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
     }
 
     // Update is called once per frame
@@ -40,6 +42,35 @@ public class EnemyObjectControl : MonoBehaviour
     void FixedUpdate()
     {
         visualizeObject.transform.localPosition = floatingPos;
+    }
+
+    void OnCollisionEnter(Collision hitObject)
+    {
+        Debug.Log($"{gameObject.name}.OnCollisionEnter({hitObject.gameObject.name})");
+
+        if (resetRBCoroutine != null)
+        {
+            StopCoroutine(resetRBCoroutine);
+        }
+        visualizeObject?.SetActive(false);
+        resetRBCoroutine = StartCoroutine(ResetRBCoroutine());
+
+    }
+
+    IEnumerator ResetRBCoroutine(float delay = 2.0f)
+    {
+        yield return new WaitForSeconds(delay);
+        ResetRB();
+        yield break;
+    }
+
+    void ResetRB()
+    {
+        dieActionCallback?.Invoke(this);
+        visualizeObject?.SetActive(true);
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.ResetInertiaTensor();
     }
 
 }
