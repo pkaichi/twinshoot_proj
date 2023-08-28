@@ -20,16 +20,21 @@ public class PlayerInputControl : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI textArea;
 
+    bool moveEnable = true;
+
+
+
 
     // Update is called once per frame
     void Update()
     {
+
         if (Gamepad.current == null)
         {
             Debug.LogWarning("Gamepad.current is NULL");
             return;
         }
-
+        moveEnable = true;
         var pad = Gamepad.current;
 #if UNITY_EDITOR
         textArea.text = $"{pad.leftStick.value},{pad.leftStick.value.magnitude}";
@@ -62,6 +67,23 @@ public class PlayerInputControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        transform.localPosition += moveVector;
+        if (moveEnable)
+        {
+            transform.localPosition += moveVector;
+        }
+    }
+
+    void OnCollisionEnter(Collision hitObj)
+    {
+        Debug.Log($"{gameObject.name} : hitObj.{hitObj.gameObject.name}[({hitObj.gameObject.tag})]");
+        if (hitObj.gameObject.tag == "Field")
+        {
+            transform.localPosition = Vector3.zero;
+            moveEnable = false;
+        }
+        else
+        {
+            Debug.Log($"hit tag : ({hitObj.gameObject.tag})");
+        }
     }
 }

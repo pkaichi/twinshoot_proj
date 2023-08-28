@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class BulletMoveControl : MonoBehaviour
 {
+    [SerializeField]
+    float moveSpeed = 1f;
 
     bool actionActive = false;
+
+    System.Action<BulletMoveControl> dieActionCallback;
+
 
     public Vector3 MoveVector
     {
@@ -14,6 +19,12 @@ public class BulletMoveControl : MonoBehaviour
     }
 
     Rigidbody rb;
+
+    public System.Action<BulletMoveControl> DieActionCallback
+    {
+        set => dieActionCallback = value;
+    }
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,6 +33,9 @@ public class BulletMoveControl : MonoBehaviour
     public void OnEnable()
     {
         actionActive = true;
+        rb.velocity = Vector3.zero;
+        rb.ResetInertiaTensor();
+        transform.rotation = Quaternion.identity;
     }
     public void OnDisable()
     {
@@ -37,8 +51,14 @@ public class BulletMoveControl : MonoBehaviour
         }
         if (rb != null)
         {
-            rb.AddForce(MoveVector * 15, ForceMode.VelocityChange);
+            rb.AddForce(MoveVector * moveSpeed, ForceMode.VelocityChange);
             actionActive = false;
         }
+    }
+
+    void OnCollisionEnter(Collision hitObj)
+    {
+        Debug.Log($"hitObj.{hitObj.gameObject.name}");
+        dieActionCallback?.Invoke(this);
     }
 }

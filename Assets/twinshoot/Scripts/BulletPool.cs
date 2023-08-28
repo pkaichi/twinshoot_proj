@@ -13,7 +13,10 @@ public class BulletPool : GameObjectSingleton<BulletPool>
         pool = new LinkedPool<BulletMoveControl>(
 
             () => GameObject.Instantiate<BulletMoveControl>(bulletPrefab),
-            (obj) => { obj.gameObject.SetActive(true); },
+            (obj) =>
+            {
+                obj.gameObject.SetActive(true);
+            },
             (obj) => { obj.gameObject.SetActive(false); },
             (obj) => GameObject.Destroy(obj),
             true,
@@ -28,7 +31,13 @@ public class BulletPool : GameObjectSingleton<BulletPool>
 
     public BulletMoveControl GetBullet()
     {
-        return pool.Get();
+        var obj = pool.Get();
+
+        obj.DieActionCallback = (b) =>
+        {
+            pool.Release(b);
+        };
+        return obj;
     }
 
     void OnDestroy()
