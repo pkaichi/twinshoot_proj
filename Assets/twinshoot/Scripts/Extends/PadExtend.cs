@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public static class PadExtend
@@ -12,12 +13,29 @@ public static class PadExtend
         Y = 0x08,
         LB = 0x10,
         RB = 0x20,
-        L3 = 0x40,
-        R3 = 0x80,
+        LT = 0x40,
+        RT = 0x80,
+        L3 = 0x100,
+        R3 = 0x200,
+
+        // util
+        ABXY = PadExtend.Assign.A | PadExtend.Assign.B | PadExtend.Assign.X | PadExtend.Assign.Y,
+
+        LBRB = PadExtend.Assign.LB | PadExtend.Assign.RB,
+        LTRT = PadExtend.Assign.LT | PadExtend.Assign.RT,
+
+        LR = PadExtend.Assign.LTRT | PadExtend.Assign.LBRB,
+
+        ABXYLBRB = PadExtend.Assign.ABXY | PadExtend.Assign.LBRB,
+        ABXYLR = PadExtend.Assign.ABXY | PadExtend.Assign.LR,
+
     };
+
+    public static readonly int AssignButtonNum = 10;
 
     public static uint PushState(this Gamepad pad)
     {
+        // この並びはAssignの並びと揃ってないといけない
         bool[] keyStates = {
             pad.aButton.isPressed,
             pad.bButton.isPressed,
@@ -25,6 +43,8 @@ public static class PadExtend
             pad.yButton.isPressed,
             pad.leftShoulder.isPressed,
             pad.rightShoulder.isPressed,
+            pad.leftTrigger.isPressed,
+            pad.rightTrigger.isPressed,
             pad.leftStick.IsPressed(),
             pad.rightStick.IsPressed()
         };
