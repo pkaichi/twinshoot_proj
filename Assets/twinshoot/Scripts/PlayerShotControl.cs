@@ -11,8 +11,6 @@ public class PlayerShotControl : MonoBehaviour
     [SerializeField]
     BulletMoveControl bulletPrefab;
 
-    uint prevInput;
-
     void Awake()
     {
         BulletPool.Instance.Initialize(bulletPrefab);
@@ -21,12 +19,10 @@ public class PlayerShotControl : MonoBehaviour
 
     void Update()
     {
-        var pad = Gamepad.current;
+        var pe = PadPlus.Instance.Current;
+        var pad = pe.pad;
 
-        var pull = pad.CalcPullState(prevInput);
-        //        var push = pad.PushState();
-
-        if ((pull & (uint)PadExtend.Assign.RB) != 0)
+        if (((pe.repeat | pe.pull) & (uint)PadExtend.Assign.RB) != 0)
         {
             var bullet = BulletPool.Instance.GetBullet();
 
@@ -36,7 +32,5 @@ public class PlayerShotControl : MonoBehaviour
             bullet.MoveVector = bullet.transform.forward;
         }
 
-
-        prevInput = pad.PushState();
     }
 }

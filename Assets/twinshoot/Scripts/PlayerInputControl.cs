@@ -29,13 +29,10 @@ public class PlayerInputControl : MonoBehaviour
     void Update()
     {
 
-        if (Gamepad.current == null)
-        {
-            Debug.LogWarning("Gamepad.current is NULL");
-            return;
-        }
+        var pe = PadPlus.Instance.Current;
+        var pad = pe.pad;
+
         moveEnable = true;
-        var pad = Gamepad.current;
 #if UNITY_EDITOR
         textArea.text = $"{pad.leftStick.value},{pad.leftStick.value.magnitude}";
 #endif

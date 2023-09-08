@@ -15,6 +15,9 @@ public class GameObjectSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 var go = new GameObject();
                 _instance = go.AddComponent(typeof(T)) as T;
                 GameObject.DontDestroyOnLoad(go);
+#if UNITY_EDITOR
+                go.name = typeof(T).Name;
+#endif
             }
             return _instance;
         }

@@ -58,7 +58,10 @@ public class BulletMoveControl : MonoBehaviour
 
     void OnCollisionEnter(Collision hitObj)
     {
-        Debug.Log($"hitObj.{hitObj.gameObject.name}");
-        dieActionCallback?.Invoke(this);
+        Debug.Log($"{name}.hitObj.{hitObj.gameObject.name}");
+        if (hitObj.gameObject.tag != gameObject.tag)
+        {
+            dieActionCallback?.Invoke(this);
+        }
     }
 }
