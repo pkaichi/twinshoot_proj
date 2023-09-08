@@ -14,6 +14,11 @@ public class PlayerInputControl : MonoBehaviour
     [SerializeField, Range(0f, 0.5f)]
     float analogBlindRange = 0.2f;
 
+    [SerializeField, Range(0f, 4f)]
+    float moveSpeed = 1f;
+
+
+
     [SerializeField]
     GameObject bulletPrefab;
 
@@ -49,7 +54,7 @@ public class PlayerInputControl : MonoBehaviour
             zmove = pad.leftStick.value.y;
         }
 
-        moveVector = new Vector3(xmove, 0f, zmove);
+        moveVector = new Vector3(xmove, 0f, zmove) * moveSpeed;
 
         // rightstickで向き換え
 
@@ -73,7 +78,7 @@ public class PlayerInputControl : MonoBehaviour
     void OnCollisionEnter(Collision hitObj)
     {
         Debug.Log($"{gameObject.name} : hitObj.{hitObj.gameObject.name}[({hitObj.gameObject.tag})]");
-        if (hitObj.gameObject.tag == "Field")
+        if (hitObj.gameObject.tag.Equals("Field"))
         {
             transform.localPosition = Vector3.zero;
             moveEnable = false;

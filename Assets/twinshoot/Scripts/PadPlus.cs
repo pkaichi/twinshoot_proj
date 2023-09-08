@@ -28,7 +28,7 @@ public class PadPlus : GameObjectSingleton<PadPlus>
     [SerializeField]
     int repeatWait = 30;
     [SerializeField]
-    int repeatFrame = 1;
+    int repeatFrame = 16;
 
 
     public PadExtendInfo Current
@@ -71,7 +71,7 @@ public class PadPlus : GameObjectSingleton<PadPlus>
         foreach (var pe in padExtendInfoList.Values)
         {
             UpdatePadextendState(pe);
-            Debug.Log($"pad[{pe.pad.deviceId}]: {pe.push:x8} / {pe.pull:x8} / {pe.repeat:x8}");
+            // Debug.Log($"pad[{pe.pad.deviceId}]: {pe.push:x8} / {pe.pull:x8} / {pe.repeat:x8}");
         }
     }
 
@@ -121,7 +121,7 @@ public class PadPlus : GameObjectSingleton<PadPlus>
             }
         }
 
-        Debug.Log($"push:{push:x8} / pull:{pull:x8} / rep:{repeatButton:x8}");
+        // Debug.Log($"push:{push:x8} / pull:{pull:x8} / rep:{repeatButton:x8}");
         pe.push = push;
         pe.repeat = repeatButton;
         pe.pull = pull;

@@ -33,9 +33,15 @@ public class BulletPool : GameObjectSingleton<BulletPool>
     {
         var obj = pool.Get();
 
-        obj.DieActionCallback = (b) =>
+        obj.HitActionCallback = (b) =>
         {
-            pool.Release(b);
+            b.hitCount--;
+
+            if (b.hitCount <= 0)
+            {
+                pool.Release(b);
+            }
+
         };
         return obj;
     }

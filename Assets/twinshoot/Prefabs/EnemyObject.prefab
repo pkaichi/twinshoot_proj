@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4742910162905420500}
   - component: {fileID: 4742910162905420501}
   - component: {fileID: 4742910162905420506}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - component: {fileID: 4742910163109652311}
   - component: {fileID: 4742910163109652310}
   - component: {fileID: 4742910163109652305}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

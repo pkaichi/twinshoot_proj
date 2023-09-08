@@ -48,13 +48,17 @@ public class EnemyObjectControl : MonoBehaviour
     {
         Debug.Log($"{gameObject.name}.OnCollisionEnter({hitObject.gameObject.name})");
 
-        if (resetRBCoroutine != null)
+        if (gameObject.layer != hitObject.gameObject.layer)
         {
-            StopCoroutine(resetRBCoroutine);
-        }
-        visualizeObject?.SetActive(false);
-        resetRBCoroutine = StartCoroutine(ResetRBCoroutine());
 
+            if (resetRBCoroutine != null)
+            {
+                StopCoroutine(resetRBCoroutine);
+            }
+            visualizeObject?.SetActive(false);
+            resetRBCoroutine = StartCoroutine(ResetRBCoroutine());
+
+        }
     }
 
     IEnumerator ResetRBCoroutine(float delay = 2.0f)
@@ -70,7 +74,8 @@ public class EnemyObjectControl : MonoBehaviour
         visualizeObject?.SetActive(true);
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
-        rb.ResetInertiaTensor();
+        transform.rotation = Quaternion.identity;
+        //        rb.ResetInertiaTensor();
     }
 
 }

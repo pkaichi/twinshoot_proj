@@ -9,7 +9,7 @@ public class BulletMoveControl : MonoBehaviour
 
     bool actionActive = false;
 
-    System.Action<BulletMoveControl> dieActionCallback;
+    System.Action<BulletMoveControl> hitActionCallback;
 
 
     public Vector3 MoveVector
@@ -18,11 +18,13 @@ public class BulletMoveControl : MonoBehaviour
         set;
     }
 
+    public int hitCount = 0;
+
     Rigidbody rb;
 
-    public System.Action<BulletMoveControl> DieActionCallback
+    public System.Action<BulletMoveControl> HitActionCallback
     {
-        set => dieActionCallback = value;
+        set => hitActionCallback = value;
     }
 
     void Awake()
@@ -36,6 +38,8 @@ public class BulletMoveControl : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.ResetInertiaTensor();
         transform.rotation = Quaternion.identity;
+
+        hitCount = 0;
     }
     public void OnDisable()
     {
@@ -58,10 +62,11 @@ public class BulletMoveControl : MonoBehaviour
 
     void OnCollisionEnter(Collision hitObj)
     {
-        Debug.Log($"{name}.hitObj.{hitObj.gameObject.name}");
+        // Debug.Log($"{name}.hitObj.{hitObj.gameObject.name} / {gameObject.tag}:{hitObj.gameObject.tag}");
         if (hitObj.gameObject.tag != gameObject.tag)
         {
-            dieActionCallback?.Invoke(this);
+            hitCount++;
+            hitActionCallback?.Invoke(this);
         }
     }
 }

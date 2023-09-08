@@ -16,7 +16,6 @@ public class PlayerShotControl : MonoBehaviour
         BulletPool.Instance.Initialize(bulletPrefab);
     }
 
-
     void Update()
     {
         var pe = PadPlus.Instance.Current;

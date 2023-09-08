@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5942312501697711461}
   - component: {fileID: 5942312501697711460}
   - component: {fileID: 5942312501697711459}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5942312502072897951}
   - component: {fileID: 1852766337}
   - component: {fileID: 1145656087}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PlayerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,6 +148,7 @@ MonoBehaviour:
   moveVector: {x: 0, y: 0, z: 0}
   yAxisRot: 1
   analogBlindRange: 0.2
+  moveSpeed: 1
   bulletPrefab: {fileID: 0}
   textArea: {fileID: 0}
 --- !u!114 &1852766337
@@ -193,7 +194,7 @@ GameObject:
   - component: {fileID: 5942312502403862641}
   - component: {fileID: 5942312502403862640}
   - component: {fileID: 5942312502403862639}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

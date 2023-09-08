@@ -6,6 +6,12 @@ using UnityEngine.Pool;
 public class EnemyGenerator : MonoBehaviour, IDisposable
 {
     [SerializeField]
+    int generateDelayCount = 10;
+
+    int generateWait = 0;
+
+
+    [SerializeField]
     EnemyObjectControl enemyPrefab;
 
     LinkedPool<EnemyObjectControl> pool;
@@ -20,6 +26,7 @@ public class EnemyGenerator : MonoBehaviour, IDisposable
     void Awake()
     {
         Initialize();
+        generateWait = generateDelayCount;
     }
 
     void Initialize()
@@ -36,17 +43,17 @@ public class EnemyGenerator : MonoBehaviour, IDisposable
 
     void Update()
     {
-        var enableCnt = 0;
-        foreach (Transform c in transform)
+        if (--generateWait <= 0)
         {
-            if (c.gameObject.activeInHierarchy)
-            {
-                enableCnt++;
-            }
-        }
-        if (enableCnt <= 0)
-        {
-            pool.Get();
+            var obj = pool.Get();
+            var objrb = obj.GetComponent<Rigidbody>();
+
+            UnityEngine.Random.InitState(Time.renderedFrameCount);
+            var xv = UnityEngine.Random.Range(0f, 1.5f) + 0.5f - 1.0f;
+            var zv = UnityEngine.Random.Range(0f, 1.5f) + 0.5f - 1.0f;
+
+            objrb?.AddRelativeForce(new Vector3(xv, 0f, zv) * 4, ForceMode.Impulse);
+            generateWait = generateDelayCount;
         }
     }
 

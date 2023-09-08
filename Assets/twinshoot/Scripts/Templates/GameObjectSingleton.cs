@@ -13,7 +13,7 @@ public class GameObjectSingleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 var go = new GameObject();
-                _instance = go.AddComponent(typeof(T)) as T;
+                _instance = go.AddComponent<T>();
                 GameObject.DontDestroyOnLoad(go);
 #if UNITY_EDITOR
                 go.name = typeof(T).Name;
