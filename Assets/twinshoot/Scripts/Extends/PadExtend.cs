@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public static class PadExtend
 {
     [Flags]
-    public enum Assign
+    public enum Assign : uint
     {
         A = 0x01,
         B = 0x02,
@@ -23,6 +23,9 @@ public static class PadExtend
 
         LBRB = PadExtend.Assign.LB | PadExtend.Assign.RB,
         LTRT = PadExtend.Assign.LT | PadExtend.Assign.RT,
+
+        LTLB = PadExtend.Assign.LT | PadExtend.Assign.LB,
+        RTRB = PadExtend.Assign.RT | PadExtend.Assign.RB,
 
         LR = PadExtend.Assign.LTRT | PadExtend.Assign.LBRB,
 
